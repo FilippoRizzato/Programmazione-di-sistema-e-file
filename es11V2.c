@@ -31,10 +31,11 @@ int main(int argc, char *argv[])
         {
             close(p1p0[1]);
             read(p1p0[0], argomento_grep, strlen(argomento_grep));
-            execl("/usr/bin/grep", "grep", argomento_grep, argv[1], (char *)0);
+            close(p1p0[0]);
             close(p0p1[0]);
             write(p0p1[1], argomento_grep, strlen(argomento_grep));
-
+            close(p0p1[1]);
+            execl("/usr/bin/grep", "grep", argomento_grep, argv[1], (char *)0);
             exit(1);
         }
         wait(&pid);
